@@ -1,0 +1,4 @@
+[submodule "ufs-weather-model"]
+	path = ufs-weather-model
+	url = git@github.com:ufs-community/ufs-weather-model
+	branch = develop
