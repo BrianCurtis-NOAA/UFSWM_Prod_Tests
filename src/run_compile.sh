@@ -58,17 +58,17 @@ mkdir -p "${RUNDIR}"
 cd "${RUNDIR}"
 
 if [[ ${SCHEDULER} = 'pbs' ]]; then
-  if [[ -e ${PATHRT}/fv3_conf/compile_qsub.IN_${MACHINE_ID} ]]; then 
-    atparse < "${PATHRT}/fv3_conf/compile_qsub.IN_${MACHINE_ID}" > job_card
+  if [[ -e ${PATHRT}/conf/fv3/compile_qsub.IN_${MACHINE_ID} ]]; then 
+    atparse < "${PATHRT}/conf/fv3/compile_qsub.IN_${MACHINE_ID}" > job_card
   else
-    echo "Looking for fv3_conf/compile_qsub.IN_${MACHINE_ID} but it is not found. Exiting"
+    echo "Looking for conf/fv3/compile_qsub.IN_${MACHINE_ID} but it is not found. Exiting"
     exit 1
   fi
 elif [[ ${SCHEDULER} = 'slurm' ]]; then
-  if [[ -e ${PATHRT}/fv3_conf/compile_slurm.IN_${MACHINE_ID} ]]; then
-    atparse < "${PATHRT}/fv3_conf/compile_slurm.IN_${MACHINE_ID}" > job_card
+  if [[ -e ${PATHRT}/conf/fv3/compile_slurm.IN_${MACHINE_ID} ]]; then
+    atparse < "${PATHRT}/conf/fv3/compile_slurm.IN_${MACHINE_ID}" > job_card
   else
-    echo "Looking for fv3_conf/compile_slurm.IN_${MACHINE_ID} but it is not found. Exiting"
+    echo "Looking for conf/fv3/compile_slurm.IN_${MACHINE_ID} but it is not found. Exiting"
     exit 1
   fi
 fi

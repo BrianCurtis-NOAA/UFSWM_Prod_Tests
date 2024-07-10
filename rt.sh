@@ -53,7 +53,7 @@ update_rtconf() {
     fi
   }
 
-  # This script will update the rt.conf ($TESTS_FILE) if needed by the
+  # This script will update the conf/rt.conf ($TESTS_FILE) if needed by the
   # -b or -n options being called/used.
 
   # THE USER CHOSE THE -b OPTION
@@ -65,7 +65,7 @@ update_rtconf() {
   elif [[ ${RUN_SINGLE_TEST} == true ]]; then
     TEST_WITH_COMPILE=("${SRT_NAME} ${SRT_COMPILER}")
   else
-    echo "No update needed to rt.conf"
+    echo "No update needed to conf/rt.conf"
     return
   fi
 
@@ -124,7 +124,7 @@ update_rtconf() {
           if [[ ${dep_test} != '' ]]; then
             find_match_result=$(set -e; find_match "${dep_test} ${RT_COMPILER_IN}" "${TEST_WITH_COMPILE[@]}")
             if [[ ${find_match_result} == -1 ]]; then
-              dep_line=$(grep -w "${dep_test}" rt.conf)
+              dep_line=$(grep -w "${dep_test}" "${PATHRT}/conf/rt.conf")
               dep_line=$(grep -v "${tmp_test}" <<< "${dep_line}")
               dep_line="${dep_line#"${dep_line%%[![:space:]]*}"}"
               dep_line=$(tr -d '\n' <<< "${dep_line}")
@@ -607,7 +607,7 @@ export delete_rundir=false
 
 COMPILE_ONLY=false
 RTPWD_NEW_BASELINE=false
-TESTS_FILE='rt.conf'
+TESTS_FILE='conf/rt.conf'
 NEW_BASELINES_FILE=''
 DEFINE_CONF_FILE=false
 RUN_SINGLE_TEST=false
@@ -629,7 +629,7 @@ while getopts ":a:b:cl:mn:dwkreovh" opt; do
       ;;
     l)
       DEFINE_CONF_FILE=true
-      TESTS_FILE=${OPTARG}
+      TESTS_FILE=conf/${OPTARG}
       grep -q '[^[:space:]]' < "${TESTS_FILE}" ||  die "${TESTS_FILE} empty, exiting..."
       ;;
     o)
@@ -656,7 +656,7 @@ while getopts ":a:b:cl:mn:dwkreovh" opt; do
       ;;
     d)
       export delete_rundir=true
-      AWK_OUT=$(awk -F "|" '{print $5}' rt.conf)
+      AWK_OUT=$(awk -F "|" '{print $5}' conf/rt.conf)
       grep "\S" <<< "${AWK_OUT}" > run/keep_tests.tmp
       ;;
     w)
@@ -813,8 +813,8 @@ case ${MACHINE_ID} in
     PTMP="${dprefix}/stmp"
 
     SCHEDULER="slurm"
-    cp fv3_conf/fv3_slurm.IN_orion fv3_conf/fv3_slurm.IN
-    cp fv3_conf/compile_slurm.IN_orion fv3_conf/compile_slurm.IN
+    cp conf/fv3/fv3_slurm.IN_orion conf/fv3/fv3_slurm.IN
+    cp conf/fv3/compile_slurm.IN_orion conf/fv3/compile_slurm.IN
     ;;
   hercules)
     echo "rt.sh: Setting up hercules..."
@@ -840,8 +840,8 @@ case ${MACHINE_ID} in
     PTMP="${dprefix}/stmp"
 
     SCHEDULER="slurm"
-    cp fv3_conf/fv3_slurm.IN_hercules fv3_conf/fv3_slurm.IN
-    cp fv3_conf/compile_slurm.IN_hercules fv3_conf/compile_slurm.IN
+    cp conf/fv3/fv3_slurm.IN_hercules conf/fv3/fv3_slurm.IN
+    cp conf/fv3/compile_slurm.IN_hercules conf/fv3/compile_slurm.IN
     ;;
   jet)
     echo "rt.sh: Setting up jet..."
@@ -934,8 +934,8 @@ case ${MACHINE_ID} in
     STMP="${dprefix}"
     PTMP="${dprefix}"
     SCHEDULER="pbs"
-    cp fv3_conf/fv3_qsub.IN_derecho fv3_conf/fv3_qsub.IN
-    cp fv3_conf/compile_qsub.IN_derecho fv3_conf/compile_qsub.IN
+    cp conf/fv3/fv3_qsub.IN_derecho conf/fv3/fv3_qsub.IN
+    cp conf/fv3/compile_qsub.IN_derecho conf/fv3/compile_qsub.IN
 
 
     if [[ "${ROCOTO:-false}" == true ]] ; then
@@ -1022,7 +1022,7 @@ if [[ ${TESTS_FILE} =~ '35d' ]] || [[ ${TESTS_FILE} =~ 'weekly' ]]; then
   TEST_35D=true
 fi
 
-source bl_date.conf
+source "${PATHRT}/conf/bl_date.conf"
 
 if [[ "${RTPWD_NEW_BASELINE}" == true ]] ; then
   RTPWD=${NEW_BASELINE}
@@ -1169,7 +1169,7 @@ EOF
 fi
 
 ##
-## read rt.conf and then either execute the test script directly or create
+## read conf/rt.conf and then either execute the test script directly or create
 ## workflow description file
 ##
 

@@ -129,7 +129,7 @@ esac
 if [[ -n "${FV3_RUN}" ]]; then
   for i in ${FV3_RUN}
   do
-    atparse < "${PATHRT}/fv3_conf/${i}" >> fv3_run
+    atparse < "${PATHRT}/conf/fv3/${i}" >> fv3_run
   done
 else
   echo "No FV3_RUN set in test file"
@@ -349,17 +349,17 @@ export PPN
 export UFS_TASKS
 
 if [[ ${SCHEDULER} = 'pbs' ]]; then
-  if [[ -e ${PATHRT}/fv3_conf/fv3_qsub.IN_${MACHINE_ID} ]]; then
-    atparse < "${PATHRT}/fv3_conf/fv3_qsub.IN_${MACHINE_ID}" > job_card
+  if [[ -e ${PATHRT}/conf/fv3/fv3_qsub.IN_${MACHINE_ID} ]]; then
+    atparse < "${PATHRT}/conf/fv3/fv3_qsub.IN_${MACHINE_ID}" > job_card
   else
-    echo "Looking for fv3_conf/fv3_qsub.IN_${MACHINE_ID} but it is not found. Exiting"
+    echo "Looking for conf/fv3/fv3_qsub.IN_${MACHINE_ID} but it is not found. Exiting"
     exit 1
   fi
 elif [[ ${SCHEDULER} = 'slurm' ]]; then
-  if [[ -e ${PATHRT}/fv3_conf/fv3_slurm.IN_${MACHINE_ID} ]]; then
-    atparse < "${PATHRT}/fv3_conf/fv3_slurm.IN_${MACHINE_ID}" > job_card
+  if [[ -e ${PATHRT}/conf/fv3/fv3_slurm.IN_${MACHINE_ID} ]]; then
+    atparse < "${PATHRT}/conf/fv3/fv3_slurm.IN_${MACHINE_ID}" > job_card
   else
-    echo "Looking for fv3_conf/fv3_slurm.IN_${MACHINE_ID} but it is not found. Exiting"
+    echo "Looking for conf/fv3/fv3_slurm.IN_${MACHINE_ID} but it is not found. Exiting"
     exit 1
   fi
 fi
