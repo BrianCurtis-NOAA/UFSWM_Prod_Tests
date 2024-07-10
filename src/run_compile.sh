@@ -40,7 +40,7 @@ cd "${PATHRT}"
 remove_fail_test
 
 [[ -e ${RUNDIR_ROOT}/${JBNME}.env ]] && source "${RUNDIR_ROOT}/${JBNME}.env"
-source default_vars.sh
+source "${PATHRT}/src/default_vars.sh"
 [[ -e ${RUNDIR_ROOT}/${JBNME}.env ]] && source "${RUNDIR_ROOT}/${JBNME}.env"
 
 
@@ -50,8 +50,8 @@ echo -n "${JBNME}, ${date_s}," > "${LOG_DIR}/${JBNME}_timestamp.txt"
 
 export RT_LOG=${LOG_DIR}/${JBNME}.log
 
-source rt_utils.sh
-source atparse.bash
+source "${PATHRT}/src/rt_utils.sh"
+source "${PATHRT}/src/atparse.bash"
 
 rm -rf "${RUNDIR}"
 mkdir -p "${RUNDIR}"

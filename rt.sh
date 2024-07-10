@@ -585,10 +585,10 @@ else
   exit 1
 fi
 
-source detect_machine.sh
-source rt_utils.sh
+source "${PATHRT}/src/detect_machine.sh"
+source "${PATHRT}/src/rt_utils.sh"
 # shellcheck disable=SC1091
-source module-setup.sh
+source "${PATHRT}/src/module-setup.sh"
 
 CREATE_BASELINE=false
 ROCOTO=false
@@ -1130,11 +1130,6 @@ if [[ ${ECFLOW} == true ]]; then
   esac
   export ECFLOW_START
 
-  #export ECF_OUTPUTDIR="${PATHRT}/ecf_outputdir"
-  #export ECF_COMDIR="${PATHRT}/ecf_comdir"
-  #rm -rf "${ECF_OUTPUTDIR}" "${ECF_COMDIR}"
-  #mkdir -p "${ECF_OUTPUTDIR}"
-  #mkdir -p "${ECF_COMDIR}"
   # Default maximum number of compile and run jobs
   MAX_BUILDS=10 #Max build jobs
   MAX_JOBS=30   #Max test/run jobs
