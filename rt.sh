@@ -490,7 +490,7 @@ EOF
     ecflow_create_compile_task
   else
     echo "rt.sh: Running compile ${COMPILE_ID}"
-    ./run_compile.sh "${PATHRT}" "${RUNDIR_ROOT}" "${MAKE_OPT}" "${COMPILE_ID}" > "${LOG_DIR}/compile_${COMPILE_ID}.log" 2>&1
+    bash "${PATHRT}/src/run_compile.sh" "${PATHRT}" "${RUNDIR_ROOT}" "${MAKE_OPT}" "${COMPILE_ID}" > "${LOG_DIR}/compile_${COMPILE_ID}.log" 2>&1
     echo "rt.sh: Compile ${COMPILE_ID} completed."
   fi
 
@@ -559,6 +559,13 @@ readonly PATHTR
 
 # Move the /run/ directory to /run_old/
 # Create new /run/ directory
+if rm -rf run_old ; then
+  echo "Removed run_old/"
+else
+  echo "Error removing run_old/.. Exiting..."
+  exit 1
+fi
+
 if mkdir "run" ; then
   echo "Created run/ successfully"
 else
@@ -1063,7 +1070,7 @@ fi
 TEST_START_TIME="$(date '+%Y%m%d %T')"
 export TEST_START_TIME
 
-source default_vars.sh
+source "${PATHRT}/src/default_vars.sh"
 
 COMPILE_COUNTER=0
 rm -f fail_test* fail_compile*
@@ -1332,7 +1339,7 @@ EOF
         ecflow_create_run_task
       else
         echo "rt.sh: Running test ${TEST_ID} using compile ${COMPILE_ID}"
-        ./run_test.sh "${PATHRT}" "${RUNDIR_ROOT}" "${TEST_NAME}" "${TEST_ID}" "${COMPILE_ID}" > "${LOG_DIR}/run_${TEST_ID}${RT_SUFFIX}.log" 2>&1
+        bash "${PATHRT}/src/run_test.sh" "${PATHRT}" "${RUNDIR_ROOT}" "${TEST_NAME}" "${TEST_ID}" "${COMPILE_ID}" > "${LOG_DIR}/run_${TEST_ID}${RT_SUFFIX}.log" 2>&1
         echo "rt.sh: Run with test ${TEST_ID} completed."
       fi
     )

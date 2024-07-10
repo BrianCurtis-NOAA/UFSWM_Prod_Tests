@@ -14,7 +14,7 @@ date_start=$(date)
 echo -n "${date_s_start}," > job_timestamp.txt
 echo "Compile started: ${date_start}"
 
-"@[PATHRT]/compile.sh" "@[MACHINE_ID]" "@[MAKE_OPT]" "@[COMPILE_ID]" "@[RT_COMPILER]"
+"@[PATHRT]/src/compile.sh" "@[MACHINE_ID]" "@[MAKE_OPT]" "@[COMPILE_ID]" "@[RT_COMPILER]"
 
 date_end=$(date)
 echo "Compile ended: ${date_end}"

@@ -95,7 +95,7 @@ fi
 cp "${PATHTR}/modulefiles/ufs_common.lua" "./modulefiles/."
 
 # Get the shell file that loads the "module" command and purges modules:
-cp "${PATHRT}/module-setup.sh" "module-setup.sh"
+cp "${PATHRT}/src/module-setup.sh" "module-setup.sh"
 
 case ${MACHINE_ID} in
   wcoss2|acorn)
