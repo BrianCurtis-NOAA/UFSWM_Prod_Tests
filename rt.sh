@@ -69,7 +69,7 @@ update_rtconf() {
     return
   fi
 
-  RT_TEMP_CONF="rt_temp.conf"
+  RT_TEMP_CONF="run/rt_temp.conf"
   rm -f "${RT_TEMP_CONF}" && touch "${RT_TEMP_CONF}"
   local compile_line=''
   while read -r line || [[ -n "${line}" ]]; do
